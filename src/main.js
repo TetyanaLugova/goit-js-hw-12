@@ -49,13 +49,6 @@ async function renderImg(event){
       hideLoadMoreBtn();
       showEndOfCollectionMessage();
         }
-
-        // if (queryInput) {
-        //     galleryRef.innerHTML = '<div class="loader"></div>';
-        //     const response = await fetchImg(queryInput, page, perPage);
-        //     const totalHits = response.totalHits;
-        //     const markup = createMarkup(response);
-        // }
        
     }
     catch(error) {
@@ -63,5 +56,7 @@ async function renderImg(event){
                 title: 'Error',
                 message: "Sorry, an error occurred while fetching images. Please try again later!",
             });
+        } finally {
+    hideLoader();
         };
     };
