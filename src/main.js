@@ -3,7 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";
 import { createMarkup, showEndOfCollectionMessage } from "./js/render-functions";
-import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage } from "./js/loaderBtnFunction";
+import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage, loadMoreBtnRef } from "./js/loaderBtnFunction";
 
 let queryInput = ''; 
 let page = 1;
@@ -22,7 +22,6 @@ async function renderImg(event){
             message: "Sorry, there are no images matching your search query. Please try again!",
         });
         hideLoadMoreBtn();
-
     return;
     }
     hideEndOfCollectionMessage();
@@ -61,10 +60,10 @@ async function renderImg(event){
         };
     };
 
-    loadMoreBtn.addEventListener('click', async () => {
+    loadMoreBtnRef.addEventListener('click', async () => {
   try {
     if (loadMoreBtn) {
-      pageCounter += 1;
+      page += 1;
     }
     const response = await fetchImages(queryInput, page, perPage);
     const totalHits = response.totalHits;

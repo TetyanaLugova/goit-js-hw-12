@@ -6,8 +6,8 @@ export const galleryRef = document.querySelector(".gallery");
 export let queryInput;
 
 export async function fetchImg(queryInput, page, perPage) {
-    //  queryInput = encodeURIComponent(queryInput);
-    // galleryRef.innerHTML = '<div class="loader"></div>';
+     queryInput = encodeURIComponent(queryInput);
+    galleryRef.innerHTML = '<div class="loader"></div>';
 
     const response = await axios.get(`https://pixabay.com/api/`, {
         params: {

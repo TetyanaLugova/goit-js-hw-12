@@ -1,4 +1,4 @@
-const loadMoreBtnRef = document.querySelector(".load-more-btn");
+export const loadMoreBtnRef = document.querySelector(".load-more-btn");
 const loaderRef = document.querySelector(".loader");
 
 export function hideLoader() {
