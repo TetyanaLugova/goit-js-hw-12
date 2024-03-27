@@ -9,12 +9,6 @@ export function showLoader() {
   return loaderRef.classList.remove('hidden');
 };
 
-export function showEndOfCollectionMessage() {
-  iziToast.error({
-    title: 'Error',
-    message: "We're sorry, but you've reached the end of search results.",
-  });
-};
 
 export function showLoadMoreBtn() {
   loadMoreBtnRef.style.display = 'block';

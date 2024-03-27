@@ -2,8 +2,8 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";
-import { createMarkup } from "./js/render-functions";
-import { hideLoader, showLoader, showEndOfCollectionMessage, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage } from "./js/loaderBtnFunction";
+import { createMarkup, showEndOfCollectionMessage } from "./js/render-functions";
+import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage } from "./js/loaderBtnFunction";
 
 let queryInput = ''; 
 let page = 1;
@@ -45,7 +45,7 @@ async function renderImg(event){
       inputRef.value = '';
       showLoadMoreBtn();
     }
-    if (perPage * pageCounter >= totalHits) {
+    if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
       showEndOfCollectionMessage();
         }
@@ -60,3 +60,32 @@ async function renderImg(event){
     hideLoader();
         };
     };
+
+    loadMoreBtn.addEventListener('click', async () => {
+  try {
+    if (loadMoreBtn) {
+      pageCounter += 1;
+    }
+    const response = await fetchImages(queryInput, page, perPage);
+    const totalHits = response.totalHits;
+
+    createMarkup(response.hits);
+    showLoader();
+    if (perPage * page >= totalHits) {
+      hideLoadMoreBtn();
+      showEndOfCollectionMessage();
+    }
+
+    const galleryCardHeight =
+      galleryRef.firstElementChild.getBoundingClientRect().height;
+    window.scrollBy({ top: galleryCardHeight * 3, behavior: 'smooth' });
+  } catch (error) {
+    console.error('Error fetching more images:', error);
+    iziToast.error({
+      title: 'Error',
+      message: `Error fetching more images: ${error}`,
+    });
+  } finally {
+    hideLoader();
+  }
+});
