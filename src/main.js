@@ -1,4 +1,3 @@
-//
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";

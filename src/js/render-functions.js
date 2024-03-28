@@ -1,11 +1,10 @@
+
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { galleryRef } from "./pixabay-api";
-
 export function createMarkup(data) {
     galleryRef.innerHTML = '';
-   
-      const markup = images.map(
+      const markup = data.map(
     (image)=> `<li class="gallery-item">
   <a class="gallery-link" href="${image.largeImageURL}">
     <img
