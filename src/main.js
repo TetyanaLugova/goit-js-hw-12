@@ -54,13 +54,14 @@ async function renderImg(event){
         } finally {
     hideLoader();
         };
-    };
+};
+    
     loadMoreBtnRef.addEventListener('click', async () => {
   try {
-    if (loadMoreBtn) {
+    if (loadMoreBtnRef) {
       page += 1;
     }
-    const response = await fetchImages(queryInput, page, perPage);
+    const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
     showLoader();
     if (perPage * page >= totalHits) {
