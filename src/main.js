@@ -5,9 +5,14 @@ import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";
 import { createMarkup, showEndOfCollectionMessage } from "./js/render-functions";
 import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage, loadMoreBtnRef } from "./js/loaderBtnFunction";
 
+
+
 let queryInput = ''; 
 let page = 1;
 const perPage = 15;
+
+hideLoader();
+hideLoadMoreBtn();
 
 formRef.addEventListener("submit", renderImg);
 
