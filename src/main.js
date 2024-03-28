@@ -1,7 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";
-import { createMarkup } from "./js/render-functions.js";
+import { createMarkup, showEndOfCollectionMessage } from "./js/render-functions.js";
 import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage, loadMoreBtnRef } from "./js/loaderBtnFunction";
 let queryInput = '';
 let page = 1;
@@ -67,7 +67,7 @@ async function renderImg(event){
     showLoader();
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
-       showEndOfCollectionMessage();
+      showEndOfCollectionMessage()
     }
     const galleryCardHeight =
       galleryRef.firstElementChild.getBoundingClientRect().height;
