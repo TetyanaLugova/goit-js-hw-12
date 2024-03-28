@@ -2,23 +2,17 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { formRef, inputRef, galleryRef, fetchImg } from "./js/pixabay-api";
-import { createMarkup, showEndOfCollectionMessage } from "./js/render-functions";
+import { createMarkup } from "./js/render-functions.js";
 import { hideLoader, showLoader, showLoadMoreBtn, hideLoadMoreBtn, hideEndOfCollectionMessage, loadMoreBtnRef } from "./js/loaderBtnFunction";
-
-
-
-let queryInput = ''; 
+let queryInput = '';
 let page = 1;
 const perPage = 15;
-
 hideLoader();
 hideLoadMoreBtn();
-
 formRef.addEventListener("submit", renderImg);
-
 async function renderImg(event){
     event.preventDefault();
-    queryInput = inputRef.value.trim(); 
+    queryInput = inputRef.value.trim();
     page = 1;
     galleryRef.innerHTML = '';
     if (queryInput === "") {
@@ -34,7 +28,6 @@ async function renderImg(event){
     try {
         const response = await fetchImg(queryInput, page, perPage);
         const totalHits = response.totalHits;
-
          if (response.hits.length === 0) {
       galleryRef.innerHTML = '';
       iziToast.info({
@@ -44,16 +37,15 @@ async function renderImg(event){
       });
       hideLoadMoreBtn();
       return;
-    } else {
-      createMarkup(response.hits);
-      inputRef.value = '';
+    }
+     else {
+       console.log(response.hits);
+    console.log(createMarkup(response.hits))
       showLoadMoreBtn();
     }
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
-      showEndOfCollectionMessage();
         }
-       
     }
     catch(error) {
             iziToast.error({
@@ -64,7 +56,6 @@ async function renderImg(event){
     hideLoader();
         };
     };
-
     loadMoreBtnRef.addEventListener('click', async () => {
   try {
     if (loadMoreBtn) {
@@ -72,14 +63,10 @@ async function renderImg(event){
     }
     const response = await fetchImages(queryInput, page, perPage);
     const totalHits = response.totalHits;
-
-    createMarkup(response.hits);
     showLoader();
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
-      showEndOfCollectionMessage();
     }
-
     const galleryCardHeight =
       galleryRef.firstElementChild.getBoundingClientRect().height;
     window.scrollBy({ top: galleryCardHeight * 3, behavior: 'smooth' });

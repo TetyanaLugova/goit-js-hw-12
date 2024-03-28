@@ -4,13 +4,7 @@ import { galleryRef } from "./pixabay-api";
 
 export function createMarkup(data) {
     galleryRef.innerHTML = '';
-    const images = data.hits;
-    if (images.length === 0) {
-            iziToast.error({
-                title: 'Error',
-                message: "Sorry, there are no images matching your search query. Please try again!",
-            });
-        }
+   
       const markup = images.map(
     (image)=> `<li class="gallery-item">
   <a class="gallery-link" href="${image.largeImageURL}">
