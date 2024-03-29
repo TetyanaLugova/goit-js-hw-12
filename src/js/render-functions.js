@@ -2,18 +2,11 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { galleryRef } from './pixabay-api';
 
-// const galleryCfg = {
-//   captionsData: 'alt',
-// };
-// let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
-// lightbox.on('show.simplelightbox', function () {});
-// lightbox.refresh();
-
-const lightbox = new SimpleLightbox('.gallery a', {
+const galleryCfg = {
   captionsData: 'alt',
-  captionDelay: 250,
-});
-
+};
+let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
+lightbox.on('show.simplelightbox', function () {});
 lightbox.refresh();
 
 export function createMarkup(data) {
