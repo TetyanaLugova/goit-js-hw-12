@@ -28,6 +28,7 @@ async function renderImg(event) {
   queryInput = inputRef.value.trim();
   page = 1;
   galleryRef.innerHTML = '';
+
   if (queryInput === '') {
     iziToast.error({
       title: 'Error',
@@ -37,11 +38,14 @@ async function renderImg(event) {
     hideLoadMoreBtn();
     return;
   }
+
   hideEndOfCollectionMessage();
   showLoader();
+
   try {
     const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
+
     if (response.hits.length === 0) {
       galleryRef.innerHTML = '';
       iziToast.info({
@@ -55,6 +59,7 @@ async function renderImg(event) {
       createMarkup(response.hits);
       showLoadMoreBtn();
     }
+
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
     }
