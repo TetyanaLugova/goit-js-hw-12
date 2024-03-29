@@ -6,6 +6,7 @@ import {
   showEndOfCollectionMessage,
 } from './js/render-functions.js';
 import {
+  loaderRef,
   hideLoader,
   showLoader,
   showLoadMoreBtn,
@@ -13,12 +14,16 @@ import {
   hideEndOfCollectionMessage,
   loadMoreBtnRef,
 } from './js/loaderBtnFunction.js';
+
 let queryInput = '';
 let page = 1;
 const perPage = 15;
+
 hideLoader();
 hideLoadMoreBtn();
+
 formRef.addEventListener('submit', renderImg);
+
 async function renderImg(event) {
   event.preventDefault();
   queryInput = inputRef.value.trim();
@@ -65,10 +70,11 @@ async function renderImg(event) {
     hideLoader();
   }
 }
+
 loadMoreBtnRef.addEventListener('click', async () => {
   page += 1;
-  showLoader();
   try {
+    loaderRef.classList.remove('hidden');
     const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
     createMarkup(response.hits);
@@ -86,6 +92,6 @@ loadMoreBtnRef.addEventListener('click', async () => {
       message: `Error fetching more images: ${error}`,
     });
   } finally {
-    hideLoader();
+    loaderRef.classList.add('hidden');
   }
 });
