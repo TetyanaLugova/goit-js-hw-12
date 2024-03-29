@@ -82,7 +82,6 @@ loadMoreBtnRef.addEventListener('click', async () => {
     const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
     createMarkup(response.hits);
-    showLoader();
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
       showEndOfCollectionMessage();
