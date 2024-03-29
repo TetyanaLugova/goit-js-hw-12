@@ -1,11 +1,25 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import { galleryRef } from './pixabay-api';
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-import { galleryRef } from "./pixabay-api";
+// const galleryCfg = {
+//   captionsData: 'alt',
+// };
+// let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
+// lightbox.on('show.simplelightbox', function () {});
+// lightbox.refresh();
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
+lightbox.refresh();
+
 export function createMarkup(data) {
-    galleryRef.innerHTML = '';
-      const markup = data.map(
-    (image)=> `<li class="gallery-item">
+  const markup = data
+    .map(
+      image => `<li class="gallery-item">
   <a class="gallery-link" href="${image.largeImageURL}">
     <img
       class="gallery-image"
@@ -27,17 +41,13 @@ export function createMarkup(data) {
           </ul>
   </a>
 </li>
-`).join("");
-    galleryRef.insertAdjacentHTML("beforeend", markup);
-    const galleryCfg = {
-    captionsData: 'alt',
-  };
-  let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
-  lightbox.on('show.simplelightbox', function () {});
-  lightbox.refresh();
+`
+    )
+    .join('');
+  galleryRef.insertAdjacentHTML('beforeend', markup);
 }
 
 export function showEndOfCollectionMessage() {
-    const markupMessege = `<p class= "end-message">"We're sorry, but you've reached the end of search results."</p>`
-    galleryRef.insertAdjacentHTML("afterend", markupMessege);
+  const markupMessege = `<p class= "end-message">"We're sorry, but you've reached the end of search results."</p>`;
+  galleryRef.insertAdjacentHTML('afterend', markupMessege);
 }
