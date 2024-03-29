@@ -45,6 +45,7 @@ async function renderImg(event) {
   try {
     const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
+    galleryRef.innerHTML = '';
 
     if (response.hits.length === 0) {
       galleryRef.innerHTML = '';
