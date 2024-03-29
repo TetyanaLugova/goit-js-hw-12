@@ -2,13 +2,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { galleryRef } from './pixabay-api';
 
-const galleryCfg = {
-  captionsData: 'alt',
-};
-let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
-lightbox.on('show.simplelightbox', function () {});
-lightbox.refresh();
-
 export function createMarkup(data) {
   const markup = data
     .map(
@@ -38,6 +31,12 @@ export function createMarkup(data) {
     )
     .join('');
   galleryRef.insertAdjacentHTML('beforeend', markup);
+  const galleryCfg = {
+    captionsData: 'alt',
+  };
+  let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
+  lightbox.on('show.simplelightbox', function () {});
+  lightbox.refresh();
 }
 
 export function showEndOfCollectionMessage() {
