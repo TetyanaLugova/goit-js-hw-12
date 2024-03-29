@@ -13,22 +13,17 @@ import {
   hideEndOfCollectionMessage,
   loadMoreBtnRef,
 } from './js/loaderBtnFunction.js';
-
 let queryInput = '';
 let page = 1;
 const perPage = 15;
-
 hideLoader();
 hideLoadMoreBtn();
-
 formRef.addEventListener('submit', renderImg);
-
 async function renderImg(event) {
   event.preventDefault();
   queryInput = inputRef.value.trim();
   page = 1;
   galleryRef.innerHTML = '';
-
   if (queryInput === '') {
     iziToast.error({
       title: 'Error',
@@ -38,15 +33,12 @@ async function renderImg(event) {
     hideLoadMoreBtn();
     return;
   }
-
   hideEndOfCollectionMessage();
   showLoader();
-
   try {
     const response = await fetchImg(queryInput, page, perPage);
     const totalHits = response.totalHits;
     galleryRef.innerHTML = '';
-
     if (response.hits.length === 0) {
       galleryRef.innerHTML = '';
       iziToast.info({
@@ -60,7 +52,6 @@ async function renderImg(event) {
       createMarkup(response.hits);
       showLoadMoreBtn();
     }
-
     if (perPage * page >= totalHits) {
       hideLoadMoreBtn();
     }
@@ -74,7 +65,6 @@ async function renderImg(event) {
     hideLoader();
   }
 }
-
 loadMoreBtnRef.addEventListener('click', async () => {
   page += 1;
   showLoader();
